@@ -1,0 +1,338 @@
+@import url(https://fonts.googleapis.com/css?family=Cabin:400);
+
+:root {
+	--num-cols: 3;
+	--column-gap: 10px;
+	--cluster-gap: 5px;
+	--cluster-padding-horiz: 5px;
+	--cluster-padding-vert: 5px;
+
+	--button-size: 30px;
+	--input-line-height: 24px;
+
+	--color-black: #000000;
+	--color-dark: #151515;
+	--color-dark-highlight: #272727;
+	--color-dark-up: #1b1b1b;
+	--color-dark-down: #111111;
+
+	--color-white: #FFFFFF;
+	--color-light: #999999;
+	--color-light-up: #BBBBBB;
+	--color-light-down: #888888;
+
+	--color-highlight: #FFE277;
+
+	--color-mid: #333333;
+	--color-mid-down: #222222;
+	--color-mid-up: #444444;
+
+	--color-debug-1: rgba(100,0,0,0.5);
+	--color-debug-2: rgba(0,100,0,0.5);
+	--color-debug-3: rgba(0,100,100,0.5);
+	--color-debug-4: rgba(100,100,0,0.5);
+
+	--font-label: Oswald;
+	--font-header: AlverataW06-PEMd;
+	--font-body: "Beaufort for LoL";
+}
+
+html {
+	height: 100%;
+	width: 100%;
+	background: black;
+}
+
+body {
+	display: flex;
+	justify-content: stretch;
+	align-items: stretch;
+
+	height: 100%;
+	width: 100%;
+}
+
+.window-wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 20px;
+	padding: 5px;
+	flex-grow: 1;
+
+	align-items: flex-start;
+	justify-content: flex-start;
+	align-content: flex-start;
+
+	background: var(--color-dark);
+}
+
+.window-wrapper h1,
+.window-wrapper h2,
+.window-wrapper h3,
+.window-wrapper h4,
+.window-wrapper h5,
+.window-wrapper h6 {
+	display: block;
+	width: 100%;
+	margin: 0;
+	color: var(--color-highlight);
+	font-family: var(--font-header);
+}
+
+.window-wrapper button {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	height: var(--button-size);
+	width: var(--button-size);
+	transform-origin: 50% 50%;
+	scale: 0.5;
+
+	border-radius: calc(0.15 * var(--button-size));
+
+	color: var(--color-mid);
+	line-height: var(--button-size);
+	font-size: var(--button-size);
+/* 	Style FontAwesome Icons Here */
+
+	background: var(--color-dark-up);
+
+	border: none;
+	outline: 0.25px solid var(--color-dark-down);
+
+	text-shadow: 0px 1px 1px var(--color-black);
+	box-shadow: none;
+
+	filter: brightness(2);
+
+	transition: 0.15s;
+}
+
+.window-wrapper button.button-top-right {
+	top: 0;
+	right: 0;
+	translate: 35% -35%;
+}
+.window-wrapper button.button-top-left {
+	top: 0;
+	left: calc(0.25 * var(--button-size));
+	translate: -50% 0%;
+}
+.window-wrapper button.button-top-left + * {
+	padding-left: calc(0.75 * var(--button-size));
+}
+
+.window-wrapper button:hover {
+	color: var(--button-highlight-color);
+	background: var(--color-mid-down);
+	box-shadow: 0px 1px 2px var(--color-black);
+	scale: 0.6;
+}
+
+.window-wrapper button:hover ~ * > * {
+	border-color: var(--button-highlight-color) !important;
+}
+.window-wrapper button:hover:before {
+	opacity: 1;
+	translate: 0% -100%;
+}
+
+.window-wrapper button:active {
+	filter: brightness(4);
+	box-shadow:
+		0 1px 0 var(--color-black);
+}
+
+.window-wrapper button.button-top-right:active {
+	translate: 35% -25%;
+}
+.window-wrapper button.button-top-left:active {
+	translate: -50% -45%;
+}
+
+.window-wrapper .button-delete,
+.window-wrapper .button-delete ~ *:not(button) {
+	--button-highlight-color: #FF0000;
+}
+.window-wrapper .button-add,
+.window-wrapper .button-add ~ *:not(button) {
+	--button-highlight-color: var(--color-highlight);
+}
+.window-wrapper button:before {
+	color: var(--button-highlight-color);
+	position: absolute;
+	right: calc(0.5 * var(--button-size));
+	opacity: 0;
+	transition: 0.25s;
+	padding: 0;
+	font-family: var(--font-label);
+	font-size: calc(var(--button-size) * 0.75);
+	line-height: var(--button-size);
+	translate: -50% 0%;
+}
+.window-wrapper button.button-top-left:before {
+	right: unset;
+	left: 0;
+}
+.window-wrapper button.button-add:before {
+	content: "ADD";
+}
+.window-wrapper button.button-delete:before {
+	content: "DELETE";
+}
+
+.window-wrapper > .section-header {
+	position: relative;
+
+	display: flex;
+	flex-direction: row;
+	max-height: 30px;
+	flex-grow: 1;
+
+	min-width: clamp(
+		200px,
+		33%,
+		calc(100% / var(--num-cols) - var(--column-gap))
+	);
+
+/* 	--button-size: 30px; */
+}
+
+/* .window-wrapper > .section-header > button + * {
+	text-indent: calc(var(--button-size) / 2);
+} */
+
+
+.window-wrapper > .input-cluster {
+	position: relative;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: stretch;
+	align-items: stretch;
+	align-content: flex-start;
+	gap: var(--cluster-gap);
+
+	min-width: clamp(
+		200px,
+		33%,
+		calc(100% / var(--num-cols) - var(--column-gap) - 2*var(--cluster-padding-horiz))
+	);
+	padding: var(--cluster-padding-vert) var(--cluster-padding-horiz);
+
+	background: linear-gradient(var(--color-dark-up), var(--color-dark-down));
+
+	border: 1px solid var(--color-black);
+	border-radius: 5px;
+
+	box-shadow: inset 0 0 0 1px var(--color-dark-highlight);
+}
+
+
+.window-wrapper > .input-cluster > .labelled-input {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	flex-grow: 1;
+	flex-shrink: 1;
+	align-self: flex-start;
+	max-height: 24px;
+}
+
+.window-wrapper > .input-cluster > .labelled-textarea {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	flex-basis: 100%;
+	align-items: flex-start;
+	justify-content: stretch;
+	align-content: stretch;
+	flex-grow: 1;
+	min-height: 150px;
+}
+
+.window-wrapper > .input-cluster > .labelled-input > input,
+.window-wrapper > .input-cluster > .labelled-textarea > textarea {
+
+	padding: 0;
+	line-height: 13px;
+	flex: 1 0;
+
+	color: var(--color-light-up);
+	font-family: var(--font-body);
+	font-size: 13px;
+	font-weight: normal;
+	text-indent: 3px;
+
+	background: var(--color-dark-down);
+
+	border: 1px solid var(--color-mid-up);
+
+	text-shadow: 0 -1px 0 var(--color-black);
+	box-shadow: 0 2px 0 var(--color-black);
+}
+
+.window-wrapper > .input-cluster > .labelled-input > input {
+	display: inline-block;
+	border-left: none;
+	border-radius: 0 5px 5px 0;
+}
+
+.window-wrapper > .input-cluster > .labelled-input > input::-webkit-input-placeholder,
+.window-wrapper > .input-cluster > .labelled-input > input:-moz-placeholder {
+   	color: var(--color-light-down);
+	font-style: italic;
+}
+
+.window-wrapper > .input-cluster > .labelled-textarea > textarea {
+	resize: none;
+	width: 100%;
+	flex-grow: 1;
+	flex-shrink: 1;
+	overflow: hidden;
+
+	border-radius: 0 5px 5px 5px;
+}
+
+.window-wrapper > .input-cluster > [class^='labelled'] > label {
+
+	display: inline-block;
+	padding: 0 5px;
+	line-height: 20px;
+
+	color: var(--color-highlight);
+	font-family: var(--font-label);
+	font-size: 13px;
+
+	background: linear-gradient(var(--color-mid), var(--color-mid-down));
+
+	border: 1px solid var(--color-mid-up);
+	border-right: none;
+	border-radius: 5px 0px 0px 5px;
+
+	box-shadow: 0 2px 0 var(--color-black);
+	text-shadow: 0 -1px 0 var(--color-black);
+}
+
+.window-wrapper > .input-cluster > .labelled-textarea > label {
+	display: block;
+	margin-bottom: 1px;
+	padding: 0;
+	line-height: 10px;
+
+	background: transparent;
+
+	border: none;
+	border-radius: 0;
+
+	font-size: 10px;
+	text-transform: uppercase;
+	transform-origin: 0% 0%;
+	scale: 1.25 1;
+	letter-spacing: 0.25px;
+
+	box-shadow: none;
+}
