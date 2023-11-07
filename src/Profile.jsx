@@ -226,104 +226,114 @@ class Profile extends React.Component {
 
   renderGameSection = () => {
     return (
-      <div className="setting compact-section flex-vertical">
-        <div className="flex-horizontal double-flex-container">
-          {U.renderLabeledInput(
-            "Game:",
-            "setting.gameName",
-            {
-              ...this.inputOptions,
-              className: "text-emphasis"
-            }
-          )}
-          {U.renderLabeledInput(
-            "Genre:",
-            "setting.genre",
-            {
-              ...this.inputOptions,
-              className: "text-emphasis"
-            }
-          )}
+      <div key="gameSection" className="input-cluster">
+        <div key="Header-GameDetails" class="section-header">
+          <h2>Game System & Setting</h2>
         </div>
+        {U.renderLabeledInput(
+          "Game:",
+          "setting.gameName",
+          {
+            ...this.inputOptions,
+            className: "text-emphasis",
+            key: "Setting-gameName"
+          }
+        )}
+        {U.renderLabeledInput(
+          "Genre:",
+          "setting.genre",
+          {
+            ...this.inputOptions,
+            className: "text-emphasis",
+            key: "Setting-genre"
+          }
+        )}
         {U.renderLabeledTextarea(
           "Tone:",
           "setting.tone",
-          this.inputOptions
+          {
+            ...this.inputOptions,
+            key: "Setting-tone"
+          }
         )}
       </div>
-    );
+    )
   };
 
   renderSettingSection = () => {
-    return (
-      <div className="setting compact-section flex-vertical">
-        <h4 className="section-title">Setting Details</h4>
+    return [
+      <div key="Cluster-GameDetails" class="input-cluster">
+        <div key="Header-GameDetails" class="section-header">
+          <h2>Setting Details</h2>
+        </div>
         {U.renderLabeledTextarea(
           "",
           "setting.details",
-          this.inputOptions
+          {
+            ...this.inputOptions,
+            key: "Setting-details"
+          }
         )}
       </div>
-    );
+    ];
   };
 
   renderPrimaryCharacterSection = () => {
-    return (
-      <div>
-        <h3 className="section-title section-title-header">Primary Character</h3>
-        <div className="primaryCharacter compact-item">
+    return [
+      <div key="Cluster-PrimaryCharacter" class="input-cluster">
+        <div key="Header-PrimaryCharacter" class="section-header">
+          <h2 class="top-half-header">Primary Character</h2>
           {U.renderLabeledInput(
-            "",
-            "characters.primary.name",
-            {
-              ...this.inputOptions,
-              className: "text-emphasis",
-              placeholder: "Name"
-            }
-          )}
-          <div className="flex-horizontal double-flex-container">
-            {U.renderLabeledInput(
-              "Party Role:",
-              "characters.primary.partyRole",
-              this.inputOptions
-            )}
-            {U.renderLabeledInput(
-              "Pronouns:",
-              "characters.primary.pronouns",
+              "",
+              "characters.primary.name",
               {
                 ...this.inputOptions,
-                placeholder: "Subject/Object, e.g. 'he/him'"
+                className: "text-emphasis",
+                placeholder: "Name",
+                key: "Character-Primary-Name"
               }
             )}
-          </div>
-          {U.renderLabeledTextarea(
-            "Concept:",
-            "characters.primary.concept",
-            this.inputOptions
-          )}
-          {U.renderLabeledTextarea(
-            "Motifs:",
-            "characters.primary.motifs",
-            this.inputOptions
-          )}
-          {U.renderLabeledTextarea(
-            "Personality:",
-            "characters.primary.personality",
-            this.inputOptions
-          )}
-          {U.renderLabeledTextarea(
-            "Strengths:",
-            "characters.primary.strengths",
-            this.inputOptions
-          )}
-          {U.renderLabeledTextarea(
-            "Flaws:",
-            "characters.primary.flaws",
-            this.inputOptions
-          )}
         </div>
+        {U.renderLabeledInput(
+          "Party Role:",
+          "characters.primary.partyRole",
+          this.inputOptions
+        )}
+        {U.renderLabeledInput(
+          "Pronouns:",
+          "characters.primary.pronouns",
+          {
+            ...this.inputOptions,
+            placeholder: "Subject/Object, e.g. 'he/him'"
+          }
+        )}
+        {U.renderLabeledTextarea(
+          "Concept:",
+          "characters.primary.concept",
+          this.inputOptions
+        )}
+        {U.renderLabeledTextarea(
+          "Motifs:",
+          "characters.primary.motifs",
+          this.inputOptions
+        )}
+        {U.renderLabeledTextarea(
+          "Personality:",
+          "characters.primary.personality",
+          this.inputOptions
+        )}
+        {U.renderLabeledTextarea(
+          "Strengths:",
+          "characters.primary.strengths",
+          this.inputOptions
+        )}
+        {U.renderLabeledTextarea(
+          "Flaws:",
+          "characters.primary.flaws",
+          this.inputOptions
+        )}
       </div>
-    );
+    ];
   };
 
 
@@ -347,7 +357,7 @@ class Profile extends React.Component {
     return (
       <div className="partyMembers compact-section flex-vertical">
         <h4 className="section-title">
-          <button onClick={this.addPartyMember} className="button-add">
+          <button onClick={this.addPartyMember} className="button-add button-top-left">
             <FontAwesomeIcon icon={faSquarePlus} />
           </button>
         Party Members
@@ -497,15 +507,13 @@ class Profile extends React.Component {
 
   renderCurrentProfile = () => {
     if (this.props.currentProfile) {
-      return (
-        <form className="profile-form">
-          {this.renderGameSection()}
-          {this.renderSettingSection()}
-          {this.renderPrimaryCharacterSection()}
-          {this.renderPartyMembersSection()}
-          {this.renderMinorCharactersSection()}
-        </form>
-      );
+      return [
+        this.renderGameSection(),
+        this.renderSettingSection(),
+        this.renderPrimaryCharacterSection(),
+        <div key="partyMembersSection" className="input-cluster">{this.renderPartyMembersSection()}</div>,
+        <div key="minorCharactersSection" className="input-cluster">{this.renderMinorCharactersSection()}</div>
+      ];
     }
   };
 

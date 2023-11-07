@@ -23,16 +23,16 @@ U.getNestedValue = (obj, target) => {
 };
 
 
-U.renderLabeledInput = (label, target, {className, placeholder, tooltip, dataSource, onChangeHandler} = {}) => {
+U.renderLabeledInput = (label, target, {className, placeholder, tooltip, dataSource, onChangeHandler, key} = {}) => {
   const value = U.getNestedValue(dataSource, target);
   className = `input-field ${className ?? ""}`.trim();
   placeholder = (placeholder ?? "").trim();
   tooltip = (tooltip ?? "").trim();
   if (label) {
-    label = <span className="label-text flex-tiny-header">{label}</span>;
+    label = <label>{label}</label>;
   }
   return (
-    <label className="input-label flex-vertical no-gap">
+    <div key={key} className="labelled-input">
       {label}
       <input
         type="text"
@@ -43,20 +43,20 @@ U.renderLabeledInput = (label, target, {className, placeholder, tooltip, dataSou
         placeholder={placeholder}
       />
       {tooltip}
-    </label>
+    </div>
   );
 };
 
-U.renderLabeledTextarea = (label, target, {className, placeholder, tooltip, dataSource, onChangeHandler} = {}) => {
+U.renderLabeledTextarea = (label, target, {className, placeholder, tooltip, dataSource, onChangeHandler, key} = {}) => {
   const value = U.getNestedValue(dataSource, target);
   className = `input-field ${className ?? ""}`.trim();
   placeholder = (placeholder ?? "").trim();
   tooltip = (tooltip ?? "").trim();
   if (label) {
-    label = <span className="label-text flex-tiny-header">{label}</span>;
+    label = <label>{label}</label>;
   }
   return (
-    <label className="input-label flex-vertical no-gap">
+    <div key={key} className="labelled-textarea">
       {label}
       <textarea
         name={target}
@@ -66,7 +66,7 @@ U.renderLabeledTextarea = (label, target, {className, placeholder, tooltip, data
         placeholder={placeholder}
       />
       {tooltip}
-    </label>
+    </div>
   );
 };
 

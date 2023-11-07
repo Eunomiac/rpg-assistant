@@ -1,5 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Cabin:400);
 
+.text-emphasis {
+  font-family: var(--font-header) !important;
+  color: var(--color-highlight) !important;
+  font-weight: bold !important;
+  text-indent: 3px;
+  text-align: center;
+}
+
 :root {
 	--num-cols: 3;
 	--column-gap: 10px;
@@ -40,40 +48,108 @@
 html {
 	height: 100%;
 	width: 100%;
-	background: black;
+	background-image: url(../public/bg-texture.jpg);
+  background-size: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
 	display: flex;
 	justify-content: stretch;
 	align-items: stretch;
+  margin: 0;
 
 	height: 100%;
 	width: 100%;
+
+  overflow-x: hidden;
 }
 
-.window-wrapper {
+#root {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+#root > .App {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background: rgba(0, 0, 0, 0.5);
+
+}
+
+
+#root > .App > .tab-navigation {
+
+}
+
+#root > .App > .tab-navigation {
+  flex-shrink: 0;
+  width: 100%;
+}
+/* Tab navigation styles */
+#root > .App > .tab-navigation > ul {
+  display: flex;
+  min-width: 100%;
+  justify-content: space-around;
+  padding: 0px 0;
+  background: linear-gradient(to right, var(--color-dark), var(--color-dark-highlight), var(--color-dark));
+  margin: 0px;
+  /* box-shadow: 0 0 10px var(--primary-color); */
+}
+#root > .App > .tab-navigation > ul > .tab-item {
+  list-style: none;
+  display: inline-block;
+  font-family: var(--font-header);
+  margin: 0 5px;
+  padding: 0;
+  flex-grow: 1;
+  text-align: center;
+  pointer-events: all;
+}
+
+#root > .App > .tab-navigation > ul > .tab-item > a {
+  text-decoration: none;
+  color: var(--color-highlight);
+  display: block;
+  flex-grow: 1;
+}
+
+#root > .App > .tab-navigation > ul > li:hover {
+  filter: brightness(1.5);
+  outline: 2px solid var(--color-light-highlight);
+  /* background: black; */
+}
+
+#root > .App > .tab-navigation > ul > .tab-item:hover > a {
+  background: rgba(255, 255, 255, 0.1);
+  /* filter: brightness(1.5); */
+}
+#root > .App > .compact-layout,
+#root > .App > .compact-layout {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	gap: 10px;
-	margin: 20px;
+
 	padding: 5px;
 	flex-grow: 1;
+  max-height: 100%;
 
 	align-items: flex-start;
 	justify-content: flex-start;
 	align-content: flex-start;
 
-	background: var(--color-dark);
+	/* background: var(--color-dark); */
 }
 
-.window-wrapper h1,
-.window-wrapper h2,
-.window-wrapper h3,
-.window-wrapper h4,
-.window-wrapper h5,
-.window-wrapper h6 {
+#root > .App > .compact-layout h1,
+#root > .App > .compact-layout h2,
+#root > .App > .compact-layout h3,
+#root > .App > .compact-layout h4,
+#root > .App > .compact-layout h5,
+#root > .App > .compact-layout h6 {
 	display: block;
 	width: 100%;
 	margin: 0;
@@ -81,7 +157,7 @@ body {
 	font-family: var(--font-header);
 }
 
-.window-wrapper button {
+#root > .App > .compact-layout button {
 	position: absolute;
 	margin: 0;
 	padding: 0;
@@ -110,57 +186,57 @@ body {
 	transition: 0.15s;
 }
 
-.window-wrapper button.button-top-right {
+#root > .App > .compact-layout button.button-top-right {
 	top: 0;
 	right: 0;
 	translate: 35% -35%;
 }
-.window-wrapper button.button-top-left {
+#root > .App > .compact-layout button.button-top-left {
 	top: 0;
 	left: calc(0.25 * var(--button-size));
 	translate: -50% 0%;
 }
-.window-wrapper button.button-top-left + * {
+#root > .App > .compact-layout button.button-top-left + * {
 	padding-left: calc(0.75 * var(--button-size));
 }
 
-.window-wrapper button:hover {
+#root > .App > .compact-layout button:hover {
 	color: var(--button-highlight-color);
 	background: var(--color-mid-down);
 	box-shadow: 0px 1px 2px var(--color-black);
 	scale: 0.6;
 }
 
-.window-wrapper button:hover ~ * > * {
+#root > .App > .compact-layout button:hover ~ * > * {
 	border-color: var(--button-highlight-color) !important;
 }
-.window-wrapper button:hover:before {
+#root > .App > .compact-layout button:hover:before {
 	opacity: 1;
 	translate: 0% -100%;
 }
 
-.window-wrapper button:active {
+#root > .App > .compact-layout button:active {
 	filter: brightness(4);
 	box-shadow:
 		0 1px 0 var(--color-black);
 }
 
-.window-wrapper button.button-top-right:active {
+#root > .App > .compact-layout button.button-top-right:active {
 	translate: 35% -25%;
 }
-.window-wrapper button.button-top-left:active {
+#root > .App > .compact-layout button.button-top-left:active {
 	translate: -50% -45%;
 }
 
-.window-wrapper .button-delete,
-.window-wrapper .button-delete ~ *:not(button) {
+#root > .App > .compact-layout .button-delete,
+#root > .App > .compact-layout .button-delete ~ *:not(button) {
 	--button-highlight-color: #FF0000;
 }
-.window-wrapper .button-add,
-.window-wrapper .button-add ~ *:not(button) {
+#root > .App > .compact-layout .button-add,
+#root > .App > .compact-layout .button-add ~ *:not(button) {
 	--button-highlight-color: var(--color-highlight);
 }
-.window-wrapper button:before {
+#root > .App > .compact-layout button:before {
 	color: var(--button-highlight-color);
 	position: absolute;
 	right: calc(0.5 * var(--button-size));
@@ -172,40 +248,66 @@ body {
 	line-height: var(--button-size);
 	translate: -50% 0%;
 }
-.window-wrapper button.button-top-left:before {
+#root > .App > .compact-layout button.button-top-left:before {
 	right: unset;
 	left: 0;
 }
-.window-wrapper button.button-add:before {
+#root > .App > .compact-layout button.button-add:before {
 	content: "ADD";
 }
-.window-wrapper button.button-delete:before {
+#root > .App > .compact-layout button.button-delete:before {
 	content: "DELETE";
 }
 
-.window-wrapper > .section-header {
+#root > .App > .compact-layout .section-header {
 	position: relative;
+  width: 100%;
 
 	display: flex;
 	flex-direction: row;
-	max-height: 30px;
+	/* max-height: 30px; */
+  /* gap: 10px; */
 	flex-grow: 1;
-
-	min-width: clamp(
-		200px,
-		33%,
-		calc(100% / var(--num-cols) - var(--column-gap))
-	);
+  flex-wrap: wrap;
+  /* margin-top: 10px; */
+  background: var(--color-dark-down);
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
 
 /* 	--button-size: 30px; */
 }
 
-/* .window-wrapper > .section-header > button + * {
+#root > .App > .compact-layout .section-header > h2 {
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--color-white);
+  font-family: var(--font-label);
+  text-align: center;
+  text-transform: uppercase;
+  max-height: 18px;
+  flex-grow: 0;
+}
+#root > .App > .compact-layout .section-header > h2.top-half-header,
+#root > .App > .compact-layout .section-header > h2.top-half-header + .labelled-input > input {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+#root > .App > .compact-layout .section-header > h2.top-half-header + .labelled-input > input {
+  max-height: 40px;
+  font-size: 20px;
+  height: 25px;
+  line-height: 25px;
+  padding-bottom: 0px;
+}
+
+/* #root > .App > .compact-layout .section-header > button + * {
 	text-indent: calc(var(--button-size) / 2);
 } */
 
 
-.window-wrapper > .input-cluster {
+#root > .App > .compact-layout .input-cluster {
 	position: relative;
 
 	display: flex;
@@ -215,11 +317,18 @@ body {
 	align-items: stretch;
 	align-content: flex-start;
 	gap: var(--cluster-gap);
+  margin-bottom: 10px;
+
+	width: clamp(
+		200px,
+		33%,
+		calc(100% / var(--num-cols) - var(--column-gap) - 2*var(--cluster-padding-horiz))
+	);
 
 	min-width: clamp(
 		200px,
 		33%,
-		calc(100% / var(--num-cols) - var(--column-gap) - 2*var(--cluster-padding-horiz))
+		calc(100% / var(--num-cols) - var(--column-gap))
 	);
 	padding: var(--cluster-padding-vert) var(--cluster-padding-horiz);
 
@@ -228,11 +337,13 @@ body {
 	border: 1px solid var(--color-black);
 	border-radius: 5px;
 
-	box-shadow: inset 0 0 0 1px var(--color-dark-highlight);
+	box-shadow:
+    inset 0 0 0 1px var(--color-dark-highlight),
+    5px 5px 5px var(--color-black);
 }
 
 
-.window-wrapper > .input-cluster > .labelled-input {
+#root > .App > .compact-layout .labelled-input {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -242,7 +353,7 @@ body {
 	max-height: 24px;
 }
 
-.window-wrapper > .input-cluster > .labelled-textarea {
+#root > .App > .compact-layout .labelled-textarea {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -251,11 +362,11 @@ body {
 	justify-content: stretch;
 	align-content: stretch;
 	flex-grow: 1;
-	min-height: 150px;
+	/* min-height: 150px; */
 }
 
-.window-wrapper > .input-cluster > .labelled-input > input,
-.window-wrapper > .input-cluster > .labelled-textarea > textarea {
+#root > .App > .compact-layout .labelled-input > input,
+#root > .App > .compact-layout .labelled-textarea > textarea {
 
 	padding: 0;
 	line-height: 13px;
@@ -275,19 +386,19 @@ body {
 	box-shadow: 0 2px 0 var(--color-black);
 }
 
-.window-wrapper > .input-cluster > .labelled-input > input {
+#root > .App > .compact-layout .labelled-input > input {
 	display: inline-block;
 	border-left: none;
 	border-radius: 0 5px 5px 0;
 }
 
-.window-wrapper > .input-cluster > .labelled-input > input::-webkit-input-placeholder,
-.window-wrapper > .input-cluster > .labelled-input > input:-moz-placeholder {
+#root > .App > .compact-layout .labelled-input > input::-webkit-input-placeholder,
+#root > .App > .compact-layout .labelled-input > input:-moz-placeholder {
    	color: var(--color-light-down);
 	font-style: italic;
 }
 
-.window-wrapper > .input-cluster > .labelled-textarea > textarea {
+#root > .App > .compact-layout .labelled-textarea > textarea {
 	resize: none;
 	width: 100%;
 	flex-grow: 1;
@@ -297,7 +408,7 @@ body {
 	border-radius: 0 5px 5px 5px;
 }
 
-.window-wrapper > .input-cluster > [class^='labelled'] > label {
+#root > .App > .compact-layout  [class^='labelled'] > label {
 
 	display: inline-block;
 	padding: 0 5px;
@@ -317,7 +428,7 @@ body {
 	text-shadow: 0 -1px 0 var(--color-black);
 }
 
-.window-wrapper > .input-cluster > .labelled-textarea > label {
+#root > .App > .compact-layout .labelled-textarea > label {
 	display: block;
 	margin-bottom: 1px;
 	padding: 0;
